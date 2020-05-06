@@ -1,0 +1,28 @@
+---
+
+# Kibana downloads and install plugins
+
+- name: Alerting Plugin Install | Download Opendistro Kibana alerting plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_kibana_download_url }}/opendistro-alerting/opendistro-alerting-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ kibana_plugin_bin_path }}/opendistro-alerting-{{ opendistro_plugin_version }}.zip"
+  register: download_plugin_alerting
+
+- name: Alerting Plugin Install | Install the Opendistro alerting plugin in kibana
+  shell: >
+    cd {{ kibana_plugin_bin_path }} && \
+    bin/kibana-plugin install file://{{ kibana_plugin_bin_path }}/opendistro-alerting-{{ opendistro_plugin_version }}.zip --allow-root
+  when: download_plugin_alerting.changed
+
+- name: Index-management Plugin Install | Download Opendistro Kibana index-management plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_kibana_download_url }}/opendistro-index-management/opendistro_index_management_kibana-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ kibana_plugin_bin_path }}/opendistro-index-management-{{ opendistro_plugin_version }}.zip"
+  register: download_index_management
+
+- name: Index-management Plugin Install | Install the Opendistro index-management plugin in kibana
+  shell: >
+    cd {{ kibana_plugin_bin_path }} && \
+    bin/kibana-plugin install file://{{ kibana_plugin_bin_path }}/opendistro-index-management-{{ opendistro_plugin_version }}.zip --allow-root
+  when: download_index_management.changed
+  notify: restart kibana

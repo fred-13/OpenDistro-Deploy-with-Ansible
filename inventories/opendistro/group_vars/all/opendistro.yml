@@ -1,0 +1,21 @@
+---
+# Variables for Opendistro security plugin installation
+
+# opendistro plugin version
+opendistro_plugin_version: 1.6.0.0
+# Install another plugins
+download_and_install_all_plugins: true
+
+# Install opendistro plugin
+opendistro_security_install: true
+# URL to download the opendistro plugins
+opendistro_elasticsearch_download_url: https://d3g5vo6xdbdb9a.cloudfront.net/downloads/elasticsearch-plugins
+## Admin user credentials will be used for User & Roles management and cluster operations
+admin_password: Test@123
+
+## Kibana server credentials will be used internally by the Kibana server
+kibanaserver_password: Test@6789
+# Install opendistro security plugin in Kibana
+opendistro_security_install_kibana: true
+# URL to dowload the opendistro kibana plugins
+opendistro_kibana_download_url: https://d3g5vo6xdbdb9a.cloudfront.net/downloads/kibana-plugins

@@ -1,0 +1,44 @@
+---
+
+# Elasticsearch downloads and install plugins
+
+- name: Job-scheduler Plugin Install | Download Opendistro Elasticsearch job-scheduler plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_elasticsearch_download_url }}/opendistro-job-scheduler/opendistro-job-scheduler-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ es_home }}/opendistro-job-scheduler-{{ opendistro_plugin_version }}.zip"
+  register: download_job_scheduler
+
+- name: Job-scheduler Plugin Install | Install the Opendistro Elasticsearch job-scheduler plugin
+  command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro-job-scheduler-{{ opendistro_plugin_version }}.zip"
+  when: download_job_scheduler.changed
+
+- name: Alerting Plugin Install | Download Opendistro Elasticsearch alerting plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_elasticsearch_download_url }}/opendistro-alerting/opendistro_alerting-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ es_home }}/opendistro_alerting-{{ opendistro_plugin_version }}.zip"
+  register: download_alerting
+
+- name: Alerting Plugin Install | Install the Opendistro Elasticsearch Alerting plugin
+  command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro_alerting-{{ opendistro_plugin_version }}.zip"
+  when: download_alerting.changed
+
+- name: SQL Plugin Install | Download Opendistro Elasticsearch sql plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_elasticsearch_download_url }}/opendistro-sql/opendistro_sql-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ es_home }}/opendistro_sql-{{ opendistro_plugin_version }}.zip"
+  register: sql
+
+- name: SQL Plugin Install | Install the Opendistro Elasticsearch Alerting plugin
+  command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro_sql-{{ opendistro_plugin_version }}.zip"
+  when: sql.changed
+
+- name: Index management Plugin Install | Download Opendistro Elasticsearch index management plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_elasticsearch_download_url }}/opendistro-index-management/opendistro_index_management-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ es_home }}/opendistro_index_management-{{ opendistro_plugin_version }}.zip"
+  register: index_management
+
+- name: Index management Plugin Install | Install the Opendistro Elasticsearch index management plugin
+  command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro_index_management-{{ opendistro_plugin_version }}.zip"
+  when: index_management.changed
+  notify: restart elasticsearch
