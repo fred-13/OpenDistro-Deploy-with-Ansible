@@ -41,4 +41,24 @@
 - name: Index management Plugin Install | Install the Opendistro Elasticsearch index management plugin
   command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro_index_management-{{ opendistro_plugin_version }}.zip"
   when: index_management.changed
+
+- name: KNN Plugin Install | Download Opendistro Elasticsearch KNN plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_elasticsearch_download_url }}/opendistro-knn/opendistro-knn-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ es_home }}/opendistro-knn-{{ opendistro_plugin_version }}.zip"
+  register: knn
+
+- name: KNN Plugin Install | Install the Opendistro Elasticsearch KNN plugin
+  command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro-knn-{{ opendistro_plugin_version }}.zip"
+  when: knn.changed
+
+- name: Performance analyzer Plugin Install | Download Opendistro Elasticsearch performance analyzer plugin {{ opendistro_plugin_version }}
+  get_url:
+    url: "{{ opendistro_elasticsearch_download_url }}/performance-analyzer/opendistro_performance_analyzer-{{ opendistro_plugin_version }}.zip"
+    dest: "{{ es_home }}/opendistro_performance_analyzer-{{ opendistro_plugin_version }}.zip"
+  register: performance_analyzer
+
+- name: KNN Plugin Install | Install the Opendistro Elasticsearch KNN plugin
+  command: "{{ es_plugin_bin_path }} install -b file://{{ es_home }}/opendistro_performance_analyzer-{{ opendistro_plugin_version }}.zip"
+  when: performance_analyzer.changed
   notify: restart elasticsearch
