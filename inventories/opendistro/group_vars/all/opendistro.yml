@@ -2,7 +2,7 @@
 # Variables for Opendistro security plugin installation
 
 # opendistro plugin version
-opendistro_plugin_version: 1.6.0.0
+opendistro_plugin_version: 1.8.0.0
 # Install another plugins
 download_and_install_all_plugins: true
 

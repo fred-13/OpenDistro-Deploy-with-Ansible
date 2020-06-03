@@ -2,7 +2,7 @@
 # defaults file for elasticsearch
 es_java_install: true
 update_java: false
-es_version: "7.6.1"
+es_version: "7.7.0"
 es_use_repository: true
 es_package_name: "elasticsearch-oss"
 es_restart_on_change: true

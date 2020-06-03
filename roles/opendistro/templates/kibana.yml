@@ -1,6 +1,6 @@
 server.port: 5601
 server.host: "{{ hostvars[inventory_hostname]['ip'] }}"
-elasticsearch.hosts: ["{{ es_nodes_kibana }}"]
+elasticsearch.hosts: ["https://localhost:9200"]
 elasticsearch.preserveHost: true
 
 {% if opendistro_security_install_kibana  %}

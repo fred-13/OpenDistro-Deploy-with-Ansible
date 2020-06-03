@@ -1,9 +1,12 @@
 ---
 
 - name: Security Plugin Install | Download Opendistro Elasticsearch security plugin {{ opendistro_plugin_version }}
-  get_url:
-    url: "{{ opendistro_elasticsearch_download_url }}/opendistro-security/opendistro_security-{{ opendistro_plugin_version }}.zip"
+  copy:
+    src: "opendistro_security-{{ opendistro_plugin_version }}.zip"
     dest: "{{ es_home }}/opendistro_security-{{ opendistro_plugin_version }}.zip"
+    mode: 0755
+    owner: root
+    group: root
   register: download
 
 - name: Security Plugin Install | Install the Opendistro security plugin
@@ -21,18 +24,10 @@
   run_once: true
   when: install.changed
 
-- name: Security Plugin Install | Download certificates generation tool
-  local_action:
-    module: get_url
-    url: https://search.maven.org/remotecontent?filepath=com/floragunn/search-guard-tlstool/1.5/search-guard-tlstool-1.5.zip
-    dest: /tmp/opendistro-nodecerts/search-guard-tlstool.zip
-  run_once: true
-  when: install.changed
-
 - name: Security Plugin Install | Extract the certificates generation tool
   local_action:
     module: unarchive
-    src: /tmp/opendistro-nodecerts/search-guard-tlstool.zip
+    src: search-guard-tlstool-1.5.zip
     dest: /tmp/opendistro-nodecerts
   run_once: true
   when: install.changed
@@ -130,6 +125,6 @@
     -key {{ conf_dir }}/admin.key
     -cd {{ es_sec_plugin_conf_path }}/
     -nhnv -icl
-    -h {{ hostvars[inventory_hostname]['ip'] }}
+    -h localhost
   run_once: true
   when: install.changed

@@ -1,14 +1,10 @@
-es1 ansible_host=192.168.122.16  ansible_user=root ip=192.168.122.16
-es2 ansible_host=192.168.122.17  ansible_user=root ip=192.168.122.17
-es3 ansible_host=192.168.122.18  ansible_user=root ip=192.168.122.18
+vm ansible_host=192.168.100.17  ansible_user=fred ip=192.168.100.17
 
 [es-cluster]
-es1
-es2
-es3
+vm
 
 [kibana]
-es1
+vm
 
 [es-cluster:vars]
 ansible_python_interpreter=/usr/bin/python

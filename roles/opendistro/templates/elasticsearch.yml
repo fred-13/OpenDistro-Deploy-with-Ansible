@@ -6,13 +6,13 @@ path.data: /var/lib/elasticsearch
 
 path.logs: /var/log/elasticsearch
 
-network.host: "{{ hostvars[inventory_hostname]['ip'] }}"
+network.host: "localhost"
 
 http.port: 9200
 
-discovery.seed_hosts: ["{{ es_nodes }}"]
+discovery.seed_hosts: ["localhost"]
 
-cluster.initial_master_nodes: ["{{ es_nodes }}"]
+cluster.initial_master_nodes: ["localhost"]
 
 discovery.zen.minimum_master_nodes: "{{ minimum_master_nodes }}"
 
